@@ -1,0 +1,49 @@
+= HTTP Response
+
+[source,php]
+return redirect('route/name')
+return back()->withInput()
+return redirect()->action('HomeController@store)
+                 ->away('external-link.fr)
+return response()->download($pathToFile);
+return response()->json(['name' => 'Abigail', 'state' => 'CA']);
+
+[source,php]
+return response('Hello World', 200)
+               ->header('Content-Type', 'text/plain')
+               ->cookie('name', 'value', $ttl)
+
+=== Redirecting With Flashed Session Data
+[source,php]
+Route::post('user/profile', function () {
+    // Update the user's profile...
+    return redirect('dashboard')->with('status', 'Profile updated!');
+});
+
+Then in the blade
+[source,php]
+@if (session('status'))
+    <div class="alert alert-success">
+        {{ session('status') }}
+    </div>
+@endif
+
+=== Populating Parameters Via Eloquent Models
+If you are redirecting to a route with an "ID" parameter that is being populated from an Eloquent model, you may pass the model itself. The ID will be extracted automatically:
+
+[source,php]
+/* For a route with the following URI: profile/{id} */
+return redirect()->route('profile', [$user]);
+
+If you would like to customize the value that is placed in the route parameter, you should override the getRouteKey method on your Eloquent model:
+
+[source,php]
+/**
+* Get the value of the model's route key.
+*
+* @return mixed
+*/
+public function getRouteKey()
+{
+    return $this->slug;
+}

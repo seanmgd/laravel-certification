@@ -1,0 +1,41 @@
+= Request
+
+[source,php]
+$request->path() // get all after the FQDN. e.g. laravel.com/docs/6.x will return docs/6.x
+        ->is('foo/*') // verify if path match with given string
+        ->url() // full url without Query string ( ?=name....
+        ->fullUrl() // full url with Query string
+        ->method() // return method used on the form
+        ->isMethod('PUT') // return bool, match with given string
+        ->all() // get all data
+        ->input('name') // get name input
+        ->name // shortcut for input('name')
+        ->only(['name', 'username']) // get only specific values
+        ->except('password') // exclude specific value
+        ->has('name') // return bool
+        ->filled('name') // if value of a specific key exists
+        ->flash() // store for the next request data
+        ->flashOnly('...')
+        ->flashExcept('...')
+return redirect('form_view')->withInput() // set last request values back on the form
+        ->old('name') // will pull the previous request input but global old helper exists also e.g.
+        <input type="text" name="username" value="{{ old('username') }}">
+        ->cookie('key') // retrieve cookie on the request
+        ->file('photo')->isValid()->path()->extension() // get file input, check if valid, return path and extension
+        ->hasFile('photo') // check if input file exists
+        ->photo->store('images','s3')->storeAs('images', 'filename.jpg', 's3')
+
+
+[source,php]
+$request->session()->put('key', 'value')
+                   ->get('key')
+                   ->all()
+                   ->has('key or val') // return true if present and not null
+                   ->exists('key or val') // return true if present only
+                   ->push('array.depth', 'valueToPush')
+                   ->pull('key') // remove key
+                   ->flash('key') // next request
+                   ->reflash('key') // several requests
+                   ->keep(['key', 'key2']) // same as reflash but only with specific values
+                   ->forget('key')
+                   ->flush()
