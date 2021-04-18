@@ -1,0 +1,19 @@
+= Laravel Lifecycle
+
+== Entry point
+All begins in public.index.php wich loads composer generated autoloader and retrieve instance of Laravel application from bootstrap/app.php
+
+== Bootstrap/app.php
+This file request many singletons as App/Http/Kernel.php which defines arrays of bootstrappers.
+Theses arrays defines middlewares, route middlewares and middlewares groups.
+It also configures error handling, configure logging, detect the application environment.
+
+== Service Provider
+This is one of the most important kernel bootstrapping action.
+They are configured on config/app.php providers array.
+Essentially every major feature is bootstrapped and configured by a service provider located on app/Providers directory.
+
+== Routing
+One of the most important service providers in your application is the App\Providers\RouteServiceProvider.
+
+Once the application has been bootstrapped an all service providers have been registered, the Request will be handed off to the router for dispatching.
