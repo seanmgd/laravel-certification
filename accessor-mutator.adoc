@@ -1,0 +1,11 @@
+== Accessor
+
+It's used to format a model attribute with
+[source,php]
+public function get'Attribute'Attributde
+
+== Mutator
+
+It's used to alter on the database a model attribute stored
+[source,php]
+public function set'Attribute'Attributde

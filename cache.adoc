@@ -1,0 +1,18 @@
+= Cache
+
+You can set the CACHE_DRIVER on the .env file. set on file by default but you can specify database then using this command
+[source,php]
+php artisan cache:table
+
+[source,php]
+Cache::put('key', 'value', $timeToLive = 0) // storing item on cache
+Cache::add('key', 'value', $timeToLive = 0) // same as put but only if key name not already exists
+Cache::get('key', 'default') // retrieve item by it's key or retrieve default key value if not exists
+Cache::has('key') // return bool
+Cache::increment('key', $amount = default 1) // increment key integer value
+Cache::decrement('key', $amount = default 1) // decrement key integer value
+Cache::remember('key', $ttl, closure...) // retrieve an item from the cache and store default value if not exist with a closure fn
+Cache::rememberForever ('key', closure...) // same as remember but with forever $ttl
+Cache::pull('key') // remove value of the key
+Cache::forget('key') // remove key and value of the key
+Cache::flush() // remove all items on cache

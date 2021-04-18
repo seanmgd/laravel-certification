@@ -1,0 +1,38 @@
+= Artisan commands I/O
+
+e.g.
+[source,php]
+public function handle()
+{
+    $name = $this->ask('What is your name?');
+}
+
+[source,php]
+->ask('What is your name?') // will show on the bash and wait respond
+->secret('What is the password?') // will hide on the bash
+->confirm('Do you wish to continue?') // ask to respond 1 or 0
+->anticipate('What is your name?', ['Taylor', 'Dayle']) // autocomplete when typing
+->choice('What is your name?',['Taylor', 'Dayle'], defaultChoice);
+->info('The command was successful!')
+->error('Something went wrong!'); // same as info but displayed in red
+->newLine(3); // add blank lines
+->call('another:commandName' --with-some-params) // call another command
+
+e.g. to show a nice progress bar
+[source,php]
+$users = App\Models\User::all();
+$bar = $this->output->createProgressBar(count($users));
+$bar->start();
+foreach ($users as $user) {
+$this->performTask($user);
+    $bar->advance();
+}
+$bar->finish();
+
+=== Registering command
+All commands are registered on App\Console\Kernel class automatically if this new command file is stored on app/Console/Commands directory.
+
+=== Use this new command
+Simply call with
+[source,php]
+Artisan::call('commandName') // you can use ::queue method also

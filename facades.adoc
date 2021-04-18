@@ -1,0 +1,9 @@
+= Facades
+
+e.g.
+[source,php]
+View::make //it's a shortcut of app('view')->make
+
+Provide a static interface to a class available in the service container (injection).
+
+You can prefix a namespace class with Facades\ on the import to cache this
